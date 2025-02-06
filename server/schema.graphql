@@ -1,0 +1,4 @@
+# this is interface
+type Query {
+  greeting: String
+}
