@@ -1,20 +1,14 @@
-import { ApolloServer } from '@apollo/server';
-import { startStandaloneServer } from '@apollo/server/standalone';
+import cors from 'cors';
+import express from 'express';
+import { authMiddleware, handleLogin } from './auth.js';
 
-// typeDef is a interface
-const typeDefs = `#graphql 
-  type Query {
-    greeting: String
-  }
-`;
+const PORT = 9000;
 
-// resolvers is implementation
-const resolvers = {
-  Query: {
-    greeting: () => 'Hello world-111',
-  },
-};
+const app = express();
+app.use(cors(), express.json(), authMiddleware);
 
-const server = new ApolloServer({ typeDefs, resolvers });
-const { url } = await startStandaloneServer(server, { listen: { port: 9000 } });
-console.log(`Server running at ${url}`);
+app.post('/login', handleLogin);
+
+app.listen({ port: PORT }, () => {
+  console.log(`Server running on port ${PORT}`);
+});
