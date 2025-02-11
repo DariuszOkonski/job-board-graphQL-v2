@@ -1,4 +1,10 @@
 # this is interface
 type Query {
-  greeting: String
+  job: Job
+}
+
+type Job {
+  id: ID
+  title: String
+  description: String
 }
