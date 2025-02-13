@@ -5,7 +5,6 @@ export const resolvers = {
     jobs: () => getJobs(),
   },
 
-  // casting createdAt to date as it is in Job schema
   Job: {
     date: (job) => toIsoDate(job.createdAt),
   },
